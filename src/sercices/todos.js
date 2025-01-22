@@ -18,7 +18,11 @@ export const getAllTodos = async () => {
 	console.log(todos);
 	return todos;
 };
-
+getAllTodos().then(todos => {
+    console.log('Todos fetched:', todos);
+}).catch(error => {
+    console.error('Error fetching todos:', error);
+});
 export const createTodo = async (name, uid) => {
 	const doc = await addDoc(collection(db, 'todos'), {
 		name,

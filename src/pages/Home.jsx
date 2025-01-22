@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useAuth } from '../context/Authcontext';
-import {  getAllTodos } from '../sercices/todos';
+import {   getUserTodos } from '../sercices/todos';
 import { Text } from '@chakra-ui/react';
 
  const Home = () => {
@@ -11,11 +11,11 @@ import { Text } from '@chakra-ui/react';
 	const { user } = useAuth();
 
 	useEffect(() => {
-        console.log(user)
 		const getData = async () => {
 			try {
-				const data = await getAllTodos();
+				const data = await getUserTodos(user);
 				setTodos(data);
+                console.log(data)
 			} catch (error) {
 				console.log(error);
 				setError(true);
@@ -27,6 +27,7 @@ import { Text } from '@chakra-ui/react';
 		getData();
 	}, []);
 
+    
 	return (
 		<div>
             <Text>Bienvenido {user?user: "a loguearse"}</Text>
@@ -41,7 +42,7 @@ import { Text } from '@chakra-ui/react';
             */}
             {/* //mostrar bug  */}
             {!todos.length && <p>No todos</p>}
-            
+
 		</div>
 	);
 };
